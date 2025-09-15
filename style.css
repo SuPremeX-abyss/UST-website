@@ -1,0 +1,200 @@
+*{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+         .header {
+            box-sizing: border-box;
+            image-rendering: auto;
+             font-family: 'Cursive', 'Script';
+            font-weight:bolder;
+             font-style: oblique;
+            padding: 13px;
+            text-align: left;
+            text-shadow: 5;
+            text-decoration-color:red , greenyellow;
+        }
+
+        .puzzle-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
+            perspective: 1000px;
+        }
+
+        .news-box {
+            position: relative;
+            background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.3) 100%);
+            border-radius: 25px;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+/* Hover effect */
+.news-box:hover {
+  transform: translateY(-10px) scale(1.05); /* Lift & zoom */
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7); /* Stronger shadow */
+}
+
+.news-box:hover img {
+  transform: scale(1.15)
+}
+
+        .news-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, 
+                transparent 0%,
+                rgba(0, 0, 0, 0.2) 50%,
+                rgba(0, 0, 0, 0.6) 100%);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .news-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: all 0.5s ease;
+            filter: brightness(0.8);
+        }
+
+        .news-content {
+            padding: 20px;
+            position: relative;
+            z-index: 3;
+            color: white;
+        }
+
+        .news-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .news-preview {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            opacity: 0.9;
+        }
+
+        /* Different sizes */
+        .news-box:nth-child(1) { height: 300px; }
+        .news-box:nth-child(2) { height: 350px; }
+        .news-box:nth-child(3) { height: 280px; }
+        .news-box:nth-child(4) { height: 320px; }
+        .news-box:nth-child(5) { height: 290px; }
+        .news-box:nth-child(6) { height: 340px; }
+        .news-box:nth-child(7) { height: 310px; }
+        .news-box:nth-child(8) { height: 330px; }
+
+        /* Hover effects */
+        .news-box:hover {
+            transform: scale(1.05) translateZ(20px) rotate3d(1, 1, 0, 5deg);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+        }
+
+        .news-box:hover .news-image {
+            transform: scale(1.1);
+            filter: brightness(1);
+        }
+ .news-box:hover img {
+      transform: scale(1.15);
+      filter: brightness(1.15) contrast(1.15);
+    }
+        .news-box:hover::before {
+            background: linear-gradient(to bottom, 
+                transparent 0%,
+                rgba(0, 0, 0, 0.1) 30%,
+                rgba(0, 0, 0, 0.4) 80%);
+        }
+
+        /* Curved puzzle edges */
+        .news-box:first-child { border-top-left-radius: 50px; }
+        .news-box:nth-child(2) { border-top-right-radius: 40px; }
+        .news-box:nth-child(3) { border-bottom-left-radius: 45px; }
+        .news-box:nth-child(4) { border-bottom-right-radius: 35px; }
+        .news-box:nth-child(5) { 
+            border-top-left-radius: 30px;
+            border-bottom-right-radius: 40px;
+        }
+        .news-box:nth-child(6) { 
+            border-top-right-radius: 35px;
+            border-bottom-left-radius: 30px;
+        }
+        .news-box:nth-child(7) { 
+            border-radius: 40px 20px 30px 50px;
+        }
+        .news-box:nth-child(8) { 
+            border-radius: 20px 40px 50px 30px;
+        }
+
+        /* Animation keyframes */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            25% { transform: translateY(-10px) rotate(1deg); }
+            50% { transform: translateY(0) rotate(-1deg); }
+            75% { transform: translateY(10px) rotate(0.5deg); }
+        }
+
+        .news-box {
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .news-box:nth-child(2) { animation-delay: 1s; }
+        .news-box:nth-child(3) { animation-delay: 2s; }
+        .news-box:nth-child(4) { animation-delay: 3s; }
+        .news-box:nth-child(5) { animation-delay: 4s; }
+        .news-box:nth-child(6) { animation-delay: 5s; }
+        .news-box:nth-child(7) { animation-delay: 6s; }
+        .news-box:nth-child(8) { animation-delay: 7s; }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .puzzle-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .news-box {
+                height: auto !important;
+                min-height: 250px;
+            }
+            
+            .news-image {
+                height: 150px;
+            }
+        }
+
+        /* Controls for random movement */
+        .controls {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+
+     
+
+        .shuffle-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }

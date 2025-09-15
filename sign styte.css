@@ -1,0 +1,73 @@
+ body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(270deg, #000000, #0d47a1, #2196f3, #ffffff);
+      background-size: 800% 800%;
+      animation: gradientMove 15s ease infinite;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Sign In Container */
+    .signin-box {
+      background: linear-gradient(145deg, #64b5f6, #0d47a1);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.3);
+      text-align: center;
+      width: 350px;
+    }
+
+    .signin-box h2 {
+      color: white;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    .signin-box input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 8px;
+      outline: none;
+      font-size: 14px;
+    }
+
+    .signin-box button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+      background: #0d47a1;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s ease;
+    }
+
+    .signin-box button:hover {
+      background: #08306b;
+      transform: scale(1.05);
+    }
+
+    .signin-box p {
+      margin-top: 15px;
+      color: #e3f2fd;
+      font-size: 14px;
+    }
+
+    .signin-box a {
+      color: #fff;
+      text-decoration: underline;
+    }

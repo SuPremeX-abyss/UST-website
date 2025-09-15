@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UST SPORTS</title>
+    <style>
+        :root {
+            --tile-radius: 30px;
+            --zoom-scale: 1.15; /* how much to zoom in on hover */
+            --transition-fast: 220ms;
+            --transition-slow: 420ms;
+            --shadow: 0 12px 28px rgba(0, 0, 0, .22), 0 2px 6px rgba(0, 0, 0, .14);
+            --bg: radial-gradient(1200px 800px at 10% 10%, #0d1b2a 0%, #0b1320 40%, #000 100%),
+                  linear-gradient(135deg, rgba(10, 75, 170, .15), rgba(255, 255, 255, .04));
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            color: #e9eef8;
+            background: #0b1320;
+            background-image: var(--bg);
+            background-attachment: fixed;
+        }
+
+        .page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 32px 18px 60px;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .title {
+            font-weight: 700;
+            letter-spacing: .2px;
+            line-height: 1.1;
+            font-size: clamp(20px, 2.6vw, 32px);
+        }
+
+        .hint {
+            opacity: .8;
+            font-size: 14px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 18px;
+        }
+
+        .media-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--tile-radius);
+            background: #0a0f1a;
+            box-shadow: var(--shadow);
+            isolation: isolate;
+            transition: transform var(--transition-fast) ease, box-shadow var(--transition-fast) ease;
+            will-change: transform;
+        }
+
+        .media-card:hover,
+        .media-card:focus-within {
+            box-shadow: 0 16px 42px rgba(0, 0, 0, .35), 0 6px 16px rgba(0, 0, 0, .18);
+        }
+
+        .media {
+            width: 100%;
+            height: 280px; /* Increased height for image boxes */
+            object-fit: cover;
+            display: block;
+            transform: scale(1);
+            transform-origin: 50% 50%;
+            filter: blur(2px) brightness(.9) saturate(.9) contrast(.95);
+            transition: transform var(--transition-slow) cubic-bezier(.2, .8, .2, 1), filter var(--transition-slow) ease;
+            will-change: transform, filter;
+            pointer-events: none; /* let the card receive pointer events */
+        }
+
+        .media-card.is-hovered .media {
+            transform: scale(var(--zoom-scale));
+            filter: blur(0) brightness(1) saturate(1.08) contrast(1.06);
+        }
+
+        .gloss {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(120% 100% at 10% 0%, rgba(255, 255, 255, .16), rgba(255, 255, 255, 0) 55%),
+                        radial-gradient(120% 120% at 100% 100%, rgba(0, 140, 255, .10), rgba(0, 0, 0, 0) 60%);
+            mix-blend-mode: screen;
+            opacity: .55;
+            transition: opacity var(--transition-slow) ease;
+            pointer-events: none;
+        }
+
+        .media-card.is-hovered .gloss {
+            opacity: .75;
+        }
+
+        .badge {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: rgba(255, 0, 0, 0.45);
+            backdrop-filter: blur(6px);
+            font-size: 12px;
+            letter-spacing: .3px;
+            display: none;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .media-card[data-type="video"] .badge {
+            display: inline-flex;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #91d2ff;
+            box-shadow: 0 0 10px #91d2ff;
+        }
+
+        .label {
+            position: absolute;
+            left: 12px;
+            bottom: 10px;
+            background: rgba(8, 12, 24, .6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 0, 0, 0.119);
+            padding: 6px 10px;
+            border-radius: 10px;
+            font-size: 12px;
+        }
+
+        /* Larger video boxes */
+        .large-video {
+            height: 400px; /* Increased height for video boxes */
+        }
+
+        @media (hover: none) and (pointer: coarse) {
+            .hint {
+                display: none;
+            }
+            .media {
+                height: 220px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <header>
+            <div class="title">UST SPORTS</div>
+            <div class="hint">Move your mouse over a tile. On phones, tap to play/pause.</div>
+        </header>
+
+        <section class="grid">
+            <!-- IMAGE BOXES -->
+            <article class="media-card" data-type="image" tabindex="0">
+                <img class="media" alt="Mountains at twilight"
+                     src="img/015.jpg" />
+                <div class="gloss" aria-hidden="true"></div>
+                <div class="label">Image</div>
+            </article>
+
+
+            <article class="media-card" data-type="image" tabindex="0">
+                <img class="media" alt="Forest in autumn"
+                     src="img/004.jpg" />
+                <div class="gloss" aria-hidden="true"></div>
+                <div class="label">Image</div>
+            </article>
+
+
+            <article class="media-card" data-type="image" tabindex="0">
+                <img class="media" alt="Desert landscape"
+                     src="img/006.jpg" />
+                <div class="gloss" aria-hidden="true"></div>
+                <div class="label">Image</div>
+            </article>
+
+           
+
+            <article class="media-card" data-type="image" tabindex="0">
+                <img class="media" alt="City skyline"
+                     src="img/005.jpg" />
+                <div class="gloss" aria-hidden="true"></div>
+                <div class="label">Image</div>
+            </article>
+
+            <article class="media-card" data-type="image" tabindex="0">
+                <img class="media" alt="Mountain range"
+                     src="img/013.jpg" />
+                <div class="gloss" aria-hidden="true"></div>
+                <div class="label">Image</div>
+            </article>
+
+           
+
+            <article class="media-card" data-type="image" tabindex="0">
+                <img class="media" alt="Sunset over the lake"
+                     src="img/011.jpg" />
+                <div class="gloss" aria-hidden="true"></div>
+                <div class="label">Image</div>
+            </article>
+
+            <article class="media-card" data-type="image" tabindex="0">
+                <img class="media" alt="Beach view"
+                     src="img/014.jpg" />
+                <div class="gloss" aria-hidden="true"></div>
+                <div class="label">Image</div>
+            </article>
+
+            <!-- VIDEO BOXES -->
+            <article class="media-card large-video" data-type="video" tabindex="0">
+                <video class="media" muted loop preload="metadata"
+                       src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
+                       poster="img/001.jpg"></video>
+                <div class="gloss" aria-hidden="true"></div>
+                <div class="badge"><span class="dot"></span> Hover to play</div>
+                <div class="label">Video</div>
+            </article>
+
+            <article class="media-card large-video" data-type="video" tabindex="0">
+                <video class="media" muted loop preload="metadata"
+                       src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/paint.webm"
+                       poster="img/001.jpg"></video>
+                <div class="gloss" aria-hidden="true"></div>
+                <div class="badge"><span class="dot"></span> Hover to play</div>
+                <div class="label">Video</div>
+            </article>
+
+            
+            
+
+         <article class="media-card" data-type="image" tabindex="0">
+                <img class="media" alt="Beach view"
+                     src="img/021.jpg" />
+                <div class="gloss" aria-hidden="true"></div>
+                <div class="label">Image</div>
+            </article>
+
+            <article class="media-card large-video" data-type="video" tabindex="0">
+                <video class="media" muted loop preload="metadata"
+                       src="img/021.jpg"
+                       poster="img/001.jpg"></video>
+                <div class="gloss" aria-hidden="true"></div>
+                <div class="badge"><span class="dot"></span> Hover to play</div>
+                <div class="label">Image</div>
+            </article>
+        </section>
+    </div>
+
+    <script>
+        // Helper: get mouse position within an element as percentages (0–100)
+        function getPointerPercentages(evt, el) {
+            const rect = el.getBoundingClientRect();
+            const x = Math.min(Math.max(0, evt.clientX - rect.left), rect.width);
+            const y = Math.min(Math.max(0, evt.clientY - rect.top), rect.height);
+            return { px: (x / rect.width) * 100, py: (y / rect.height) * 100 };
+        }
+
+        const cards = document.querySelectorAll('.media-card');
+
+        cards.forEach(card => {
+            const media = card.querySelector('.media');
+            const isVideo = card.dataset.type === 'video';
+
+            // Track hover state for zoom/clarity
+            const enter = () => {
+                card.classList.add('is-hovered');
+                if (isVideo && media.paused) {
+                    // Autoplay policy: must be muted to allow autoplay on hover
+                    media.play().catch(() => { /* ignore autoplay errors */ });
+                }
+            };
+
+            const leave = () => {
+                card.classList.remove('is-hovered');
+                // Smoothly reset transform origin
+                media.style.transformOrigin = '50% 50%';
+                if (isVideo && !media.paused) {
+                    media.pause();
+                    media.currentTime = 0; // rewind so the next hover starts fresh
+                }
+            };
+
+            // Mouse / pointer events
+            card.addEventListener('pointerenter', enter);
+            card.addEventListener('pointerleave', leave);
+
+            // Follow the cursor with the zoom origin
+            card.addEventListener('pointermove', (e) => {
+                if (e.pointerType === 'mouse' || e.pointerType === 'pen') {
+                    const { px, py } = getPointerPercentages(e, card);
+                    media.style.transformOrigin = `${px}% ${py}%`;
+                }
+            });
+
+            // Keyboard accessibility: focus = hover-like behavior
+            card.addEventListener('focus', enter);
+            card.addEventListener('blur', leave);
+
+            // Touch support: tap toggles play/pause for videos
+            card.addEventListener('click', () => {
+                if (!isVideo) return;
+                if (media.paused) {
+                    media.play().catch(() => { });
+                    card.classList.add('is-hovered');
+                } else {
+                    media.pause();
+                    card.classList.remove('is-hovered');
+                }
+            }, { passive: true });
+        });
+
+        // Optional: pause all other videos when one starts playing
+        document.addEventListener('play', (e) => {
+            if (!(e.target instanceof HTMLVideoElement)) return;
+            document.querySelectorAll('video').forEach(v => {
+                if (v !== e.target) { v.pause(); }
+            });
+        }, true);
+    </script>
+</body>
+</html>
